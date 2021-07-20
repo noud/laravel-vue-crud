@@ -23,8 +23,6 @@ import Vue from 'vue'
  window.Vue = Vue;
  Vue.use(VueRouter);
  Vue.use(VueAxios, axios);
-//  Vue.createApp({}).use(VueRouter) 
-//  Vue.createApp({}).use(VueAxios, axios) 
 
  const router = new VueRouter({
      mode: 'history',

@@ -2090,9 +2090,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //  windo
 
 window.Vue = vue__WEBPACK_IMPORTED_MODULE_4__.default;
 vue__WEBPACK_IMPORTED_MODULE_4__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_5__.default);
-vue__WEBPACK_IMPORTED_MODULE_4__.default.use((vue_axios__WEBPACK_IMPORTED_MODULE_1___default()), (axios__WEBPACK_IMPORTED_MODULE_2___default())); //  Vue.createApp({}).use(VueRouter) 
-//  Vue.createApp({}).use(VueAxios, axios) 
-
+vue__WEBPACK_IMPORTED_MODULE_4__.default.use((vue_axios__WEBPACK_IMPORTED_MODULE_1___default()), (axios__WEBPACK_IMPORTED_MODULE_2___default()));
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__.default({
   mode: 'history',
   routes: _routes__WEBPACK_IMPORTED_MODULE_3__.routes
