@@ -13,12 +13,24 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $product = new Product([
-            'name' => $request->input('name'),
-            'detail' => $request->input('detail')
-        ]);
+        // var_dump($request->file);
+        if (!is_string($request->file)) {
+            $file_name = time().'_'.$request->file->getClientOriginalName();
+            $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
+            $product = new Product([
+                'name' => $request->input('name'),
+                'detail' => $request->input('detail'),
+                'path' => '/storage/' . $file_path
+            ]);
+        } else {
+            $product = new Product([
+                'name' => $request->input('name'),
+                'detail' => $request->input('detail')
+            ]);
+        }
         $product->save();
 
+        // return response()->json($request->file);
         return response()->json('Product created!');
     }
 

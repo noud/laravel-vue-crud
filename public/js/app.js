@@ -1905,6 +1905,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1967,6 +1969,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1974,7 +1977,28 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    addProduct: function addProduct() {
+    onChange: function onChange(e) {
+      this.file = e.target.files[0];
+    },
+    addProduct: function addProduct(e) {
+      e.preventDefault();
+      var existingObj = this;
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
+      var data = new FormData();
+      data.append('file', this.file);
+      data.append('name', this.product.name);
+      data.append('detail', this.product.detail);
+      axios.post('http://localhost:8000/api/products', data, config).then(function (res) {
+        existingObj.success = res.data.success;
+      })["catch"](function (err) {
+        existingObj.output = err;
+      });
+    },
+    addProduct2: function addProduct2() {
       var _this = this;
 
       this.axios.post('http://localhost:8000/api/products', this.product).then(function (response) {
@@ -37961,6 +37985,12 @@ var render = function() {
             _c("td", [_vm._v(_vm._s(product.detail))]),
             _vm._v(" "),
             _c("td", [
+              _c("img", {
+                attrs: { src: product.path, width: "50", height: "50" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("td", [
               _c(
                 "div",
                 { staticClass: "btn-group", attrs: { role: "group" } },
@@ -38010,7 +38040,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Detail")])
+        _c("th", [_vm._v("Detail")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Path")])
       ])
     ])
   }
@@ -38104,6 +38136,12 @@ var render = function() {
                 }
               })
             ]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "file" },
+              on: { change: _vm.onChange }
+            }),
             _vm._v(" "),
             _c(
               "button",
