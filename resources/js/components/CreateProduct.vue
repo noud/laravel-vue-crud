@@ -12,6 +12,7 @@
                         <label>Detail</label>
                         <input type="text" class="form-control" v-model="product.detail">
                     </div>
+                    <input type="file" class="form-control" v-on:change="onChange">
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form>
             </div>
@@ -27,15 +28,32 @@
             }
         },
         methods: {
-            addProduct() {
-                this.axios
-                    .post('http://localhost:8000/api/products', this.product)
-                    .then(response => (
-                        this.$router.push({ name: 'home' })
-                    ))
-                    .catch(err => console.log(err))
-                    .finally(() => this.loading = false)
-            }
+            onChange(e) {
+                this.file = e.target.files[0];
+            },
+            addProduct(e) {
+                e.preventDefault();
+                let existingObj = this;
+
+                const config = {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                }
+
+                let data = new FormData();
+                data.append('file', this.file);
+                data.append('name', this.product.name);
+                data.append('detail', this.product.detail);
+
+                axios.post('http://localhost:8000/api/products', data, config)
+                    .then(function (res) {
+                        existingObj.success = res.data.success;
+                    })
+                    .catch(function (err) {
+                        existingObj.output = err;
+                    });
+            },
         }
     }
 </script>
