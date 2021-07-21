@@ -42,8 +42,24 @@ class ProductController extends Controller
     public function update($id, Request $request)
     {
         $product = Product::find($id);
+        if (!is_string($request->file) && null != $request->file) {
+            if ($product->path) {
+                // delete the image
+                $file = public_path().'/'.$product->path;
+                File::delete($file);
+            }
+        }
         $product->update($request->all());
-
+        if (!is_string($request->file) && null != $request->file) {
+            $file_name = time().'_'.$request->file->getClientOriginalName();
+            $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
+            $product->path = '/storage/' . $file_path;
+            $product->save();
+            return response()->json('Product picture updated!');
+        }
+        // return response()->json($request->input('name'));
+        return response()->json($request->all());
+        // return response()->json($product);
         return response()->json('Product updated!');
     }
 

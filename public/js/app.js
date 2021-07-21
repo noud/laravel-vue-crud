@@ -2038,6 +2038,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2052,6 +2053,36 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    onChange: function onChange(e) {
+      this.product.file = e.target.files[0];
+    },
+    updateProduct1: function updateProduct1(e) {
+      e.preventDefault();
+      var existingObj = this;
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      }; // let data = new FormData();
+
+      var data = this.product;
+
+      if (this.product.file) {
+        data.file = this.product.file;
+      } // data.append('name', this.product.name);
+      // data.append('detail', this.product.detail);
+
+
+      console.log('data', data);
+      axios.patch("http://localhost:8000/api/products/".concat(this.$route.params.id), data, config).then(function (res) {
+        // existingObj.success = res.data.success;
+        this.$router.push({
+          name: 'home'
+        });
+      })["catch"](function (err) {
+        existingObj.output = err;
+      });
+    },
     updateProduct: function updateProduct() {
       var _this2 = this;
 
