@@ -14,7 +14,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // var_dump($request->file);
         if (!is_string($request->file)) {
             $file_name = time().'_'.$request->file->getClientOriginalName();
             $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
@@ -31,7 +30,6 @@ class ProductController extends Controller
         }
         $product->save();
 
-        // return response()->json($request->file);
         return response()->json('Product created!');
     }
 
