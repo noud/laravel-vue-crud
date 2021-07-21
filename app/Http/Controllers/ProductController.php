@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use File;
 
 class ProductController extends Controller
 {
@@ -51,6 +52,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
+        if ($product->path) {
+            // delete the image
+            $file = public_path().'/'.$product->path;
+            File::delete($file);
+        }
         $product->delete();
 
         return response()->json('Product deleted!');
