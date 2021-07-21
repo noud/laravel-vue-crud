@@ -12,6 +12,9 @@
                         <label>Detail</label>
                         <input type="text" class="form-control" v-model="product.detail">
                     </div>
+                    <div>
+                        <img :src="product.path" width="50" height="50">
+                    </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
             </div>

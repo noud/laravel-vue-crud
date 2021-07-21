@@ -1997,19 +1997,6 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         existingObj.output = err;
       });
-    },
-    addProduct2: function addProduct2() {
-      var _this = this;
-
-      this.axios.post('http://localhost:8000/api/products', this.product).then(function (response) {
-        return _this.$router.push({
-          name: 'home'
-        });
-      })["catch"](function (err) {
-        return console.log(err);
-      })["finally"](function () {
-        return _this.loading = false;
-      });
     }
   }
 });
@@ -2027,6 +2014,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -38242,6 +38232,12 @@ var render = function() {
                     _vm.$set(_vm.product, "detail", $event.target.value)
                   }
                 }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("img", {
+                attrs: { src: _vm.product.path, width: "50", height: "50" }
               })
             ]),
             _vm._v(" "),
